@@ -88,7 +88,8 @@ public class AutoValueRealmExtension extends AutoValueExtension {
     private void createRealmObjectClass(Context context) {
         TypeSpec.Builder realmObjectClassBuilder = TypeSpec.classBuilder(getRealmObjectType(context).simpleName())
                 .addModifiers(Modifier.PUBLIC)
-                .superclass(ClassName.get("io.realm", "RealmObject"))
+                .addAnnotation(ClassName.get("io.realm.annotations", "RealmClass"))
+                .addSuperinterface(ClassName.get("io.realm", "RealmModel"))
                 .addSuperinterface(ParameterizedTypeName.get(ClassName.get(AvRealmModel.class), getAvObjectType(context)));
 
         // Create the fields and the setters
